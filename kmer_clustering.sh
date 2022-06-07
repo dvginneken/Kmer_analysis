@@ -12,6 +12,7 @@ if [ -z "$(ls -A ${output_folder}/reads)" ]; then
     do
         base=${file##*/}
         seqtk seq -a ${fastq_folder}/${file} > ${output_folder}/reads/"${base%.*}".fasta
+        echo "Converted fastq to fasta"
     done
 else
    echo "Already converted fastq to fasta"
@@ -25,8 +26,16 @@ if [ -z "$(ls -A ${output_folder}/kmer_counts)" ]; then
         base=${file##*/}
         jellyfish count -m 3 -s 100M -t 10 -C ${output_folder}/reads/${file} -o ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts.jf
         jellyfish dump ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts.jf > ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts_dump.fa
+        echo "Counted kmers"
     done
 else
    echo "Already countend kmers"
 fi
 
+#Cluster
+if [ -f "${output_folder}/ClusterPlot.png" ]; then
+    echo "    Already clustered"
+else
+    Rscript Cluster.R ${output_folder}
+    echo "Saved Cluster Plot"
+fi

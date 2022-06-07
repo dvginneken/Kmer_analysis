@@ -8,3 +8,8 @@ dependencies:
   - jellyfish=2.2.10
   - r-base =4.0.2
   - r-stringr=1.4.0
+  - r-microseq=2.1.5
+  - r-tidyr=1.2.0
+  - r-ggplot2=3.3.5
+  - r-FactoMineR=2.4
+  - r-dplyr=1.0.8
