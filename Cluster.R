@@ -25,6 +25,7 @@ for (x in filelist){
   count_table = rbind(count_table, new_table)
   rownames(count_table) <- c()
 }
+
 write.table(count_table, file=paste0(path,"/kmer_counts.tsv"), sep="\t", row.names=FALSE)
 
 #Kmeans clustering

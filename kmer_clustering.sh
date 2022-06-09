@@ -15,7 +15,7 @@ if [ -z "$(ls -A ${output_folder}/reads)" ]; then
         echo "Converted fastq to fasta"
     done
 else
-   echo "Already converted fastq to fasta"
+   echo "    Already converted fastq to fasta"
 fi
 
 #Count kmers
@@ -24,18 +24,27 @@ if [ -z "$(ls -A ${output_folder}/kmer_counts)" ]; then
     for file in `ls -l ${output_folder}/reads | grep -E ".fasta$" | awk '{print $9}' | tr "\n" " "`
     do
         base=${file##*/}
-        jellyfish count -m 3 -s 100M -t 10 -C ${output_folder}/reads/${file} -o ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts.jf
+        jellyfish count -m 9 -s 100M -t 10 -C ${output_folder}/reads/${file} -o ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts.jf
         jellyfish dump ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts.jf > ${output_folder}/kmer_counts/"${base%.*}"_kmer_counts_dump.fa
         echo "Counted kmers"
     done
 else
-   echo "Already countend kmers"
+    echo "    Already countend kmers"
+fi
+
+
+#Create dataframe
+if [ -f "${output_folder}/kmer_counts.tsv" ]; then
+    echo "    Already created TSV"
+else
+    Rscript CreateDF.R ${output_folder}
+    echo "Saved TSV"
 fi
 
 #Cluster
-if [ -f "${output_folder}/ClusterPlot.png" ]; then
-    echo "    Already clustered"
-else
-    Rscript Cluster.R ${output_folder}
-    echo "Saved Cluster Plot"
-fi
+#if [ -f "${output_folder}/ClusterPlot.png" ]; then
+#    echo "    Already clustered"
+#else
+#    Rscript Cluster.R ${output_folder}
+#    echo "Saved Cluster Plot"
+#fi
