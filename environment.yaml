@@ -1,4 +1,4 @@
-name: kmer-clustering
+name: kmer-analysis
 channels:
   - bioconda
   - conda-forge
