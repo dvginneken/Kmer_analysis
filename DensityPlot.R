@@ -12,6 +12,7 @@ table <- table[table$Sample != "4-SCM",]
 rownames(table) <- paste0(table$Sample, "_", table$Replicate)
 
 dist_matrix = as.matrix(dist(table[,3:ncol(table)]))
+write_tsv(as.data.frame(dist_matrix), file=paste0(path,"/DistanceMatrix.tsv"))
 
 repl <- numeric()
 non_repl <- numeric()
