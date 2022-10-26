@@ -1,4 +1,5 @@
 # Kmer Analysis
+Calculate the euclidean distance of k-mer occurences between reads of replicates and non-replicates.
 
 ### How to run these scripts
 Create and activate the conda environment:  
