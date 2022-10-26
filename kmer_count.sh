@@ -40,11 +40,3 @@ else
     Rscript CreateDF.R ${output_folder}
     echo "Saved TSV"
 fi
-
-#Cluster
-#if [ -f "${output_folder}/ClusterPlot.png" ]; then
-#    echo "    Already clustered"
-#else
-#    Rscript Cluster.R ${output_folder}
-#    echo "Saved Cluster Plot"
-#fi
